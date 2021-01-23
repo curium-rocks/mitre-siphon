@@ -1,0 +1,7 @@
+.*
+*.iml
+**/node_modules
+# exclude build binaries
+build/*
+#needed for git version plugin
+!.git
