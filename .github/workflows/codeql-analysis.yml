@@ -43,7 +43,7 @@ jobs:
       with:
         languages: ${{ matrix.language }}
     - run: |
-        chmod +x ${GITHUB_WORKSPACE}/scripts/sh/gradle-build.sh
-        ${GITHUB_WORKSPACE}/scripts/sh/gradle-build.sh
+        chmod +x ./scripts/sh/gradle-build.sh
+       ./scripts/sh/gradle-build.sh
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v1
