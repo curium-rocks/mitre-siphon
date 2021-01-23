@@ -15,8 +15,9 @@ WORKDIR /app_build/
 RUN pwd
 RUN ls -la
 COPY --from=LOCAL_FILES /app_files/ /app_build/
-COPY --from=REACT_BUILD /app_build/mitre-siphon/dist/ /app_build/src/main/resources/static/
-RUN sh scripts/sh/gradle-build.sh
+COPY --from=REACT_BUILD /app_build/mitre-siphon/build/ /app_build/src/main/resources/static/
+RUN chmod +x /app_build/scripts/sh/gradle-build.sh
+RUN /app_build/scripts/sh/gradle-build.sh
 
 FROM alpine:3.12 AS RUNTIME
 RUN apk add --no-cache openjdk11-jre
