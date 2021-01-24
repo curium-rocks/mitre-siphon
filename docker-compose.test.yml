@@ -2,7 +2,7 @@ version: '3'
 services:
   sut:
     build: .
-    command: scripts/sh/run-qa.sh
+    command: ./scripts/sh/run-qa.sh
     depends_on:
       - postgres
       - kafka-1
