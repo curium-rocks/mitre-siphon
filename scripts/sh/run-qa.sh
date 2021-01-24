@@ -1,2 +1,2 @@
 #!/bin/sh
-./gradlew test --debug --stacktrace
+./gradlew test

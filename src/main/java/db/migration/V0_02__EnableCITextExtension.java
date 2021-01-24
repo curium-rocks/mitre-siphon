@@ -9,6 +9,10 @@ public class V0_02__EnableCITextExtension extends SimpleExecutionMigration {
     private static final String UP_SQL = """
        CREATE EXTENSION IF NOT EXISTS  "citext";
     """;
+    public V0_02__EnableCITextExtension(){
+        super(false);
+    }
+
     @Override
     public String getSql() {
         return UP_SQL;
