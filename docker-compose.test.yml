@@ -1,9 +1,11 @@
 version: '3'
 services:
   mitre-siphon:
-    build: ./
+    build: .
     depends_on:
       - postgres
+  sut:
+    command: scripts/sh/run-qa.sh
   postgres:
     image: "postgres"
     env_file:
