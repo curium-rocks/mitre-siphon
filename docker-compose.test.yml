@@ -1,0 +1,33 @@
+version: '3'
+services:
+  postgres:
+    image: "postgres"
+    env_file:
+      - database.env
+    volumes:
+      - database-data:/var/lib/postgresql/data/
+    ports:
+      - "5432:5432"
+  mitre-siphon:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+      - "443:443"
+      - "80:80"
+    depends_on:
+      - postgres
+  sut:
+    build:
+      context: .
+      dockerfile: test.Dockerfile
+    command: /app_test/scripts/sh/run-qa.sh
+    ports:
+      - "8080:8080"
+      - "443:443"
+      - "80:80"
+    depends_on:
+      - postgres
+volumes:
+  database-data:

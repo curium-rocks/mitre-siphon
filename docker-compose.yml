@@ -1,7 +1,11 @@
 version: '3'
 services:
   mitre-siphon:
-    image: docker.pkg.github.com/akboyd88/mitre-siphon/mitre-siphon:latest
+    image: mitre-siphon:0aed049
+    ports:
+      - "8080:8080"
+      - "443:443"
+      - "80:80"
     depends_on:
       - postgres
       - kafka-1
@@ -11,7 +15,7 @@ services:
       - zookeeper-2
       - zookeeper-3
   postgres:
-    image: "postgres"
+    image: "postgres:13-alpine"
     env_file:
       - database.env
     ports:
