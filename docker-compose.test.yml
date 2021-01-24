@@ -22,7 +22,7 @@ services:
     build:
       context: .
       dockerfile: test.Dockerfile
-    command: /app/scripts/sh/run-qa.sh
+    command: /app_test/scripts/sh/run-qa.sh
     ports:
       - "8080:8080"
       - "443:443"
