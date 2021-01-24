@@ -1,11 +1,16 @@
 version: '3'
 services:
-  mitre-siphon:
+  sut:
     build: .
+    command: scripts/sh/run-qa.sh
     depends_on:
       - postgres
-  sut:
-    command: scripts/sh/run-qa.sh
+      - kafka-1
+      - kafka-2
+      - kafka-3
+      - zookeeper-1
+      - zookeeper-2
+      - zookeeper-3
   postgres:
     image: "postgres"
     env_file:
