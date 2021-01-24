@@ -7,7 +7,7 @@ WORKDIR /app_build
 RUN apk add --no-cache nodejs npm
 COPY --from=LOCAL_FILES /app_files/src/main/frontend/ /app_build/
 WORKDIR /app_build/mitre-siphon
-RUN npm install && npm build
+RUN npm install && npm run-script build
 
 FROM alpine:3.12 AS JAVA_BUILD
 RUN apk add --no-cache openjdk11
