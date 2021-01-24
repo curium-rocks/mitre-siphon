@@ -10,8 +10,6 @@ WORKDIR /app_build/mitre-siphon
 RUN npm install && npm run-script build
 
 FROM openjdk:15-jdk-alpine AS JAVA_BUILD
-ARG RUN_GRADLE_TEST
-ENV RUN_GRADLE_TEST=$RUN_GRADLE_TEST
 WORKDIR /app_build/
 COPY --from=LOCAL_FILES /app_files/ /app_build/
 COPY --from=REACT_BUILD /app_build/mitre-siphon/build/ /app_build/src/main/resources/static/
