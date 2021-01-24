@@ -7,12 +7,15 @@ import org.springframework.stereotype.Component;
 
 
 /**
- *
+ * Scheduled tasks for fetching information from TAXII API end points
  */
 @Component
 public class TaxiiTasks {
     private static final Logger LOG = LoggerFactory.getLogger(TaxiiTasks.class);
 
+    /**
+     * Fetch the TAXII information from the MITRE end point
+     */
     @Scheduled(fixedRate = 5000)
     public void Fetch(){
         LOG.debug("starting fetch");

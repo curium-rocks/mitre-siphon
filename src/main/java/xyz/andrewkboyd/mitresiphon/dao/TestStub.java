@@ -5,6 +5,9 @@ import lombok.Data;
 import javax.persistence.*;
 import java.util.UUID;
 
+/**
+ * Test data access object for the test table
+ */
 @Entity
 @Table(name = "test")
 public @Data
