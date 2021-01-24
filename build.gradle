@@ -46,6 +46,10 @@ test {
 
 task versionFile()  {
 	doLast {
+		def folder = new File(buildDir.toPath().toString())
+		if( !folder.exists() ) {
+			folder.mkdirs()
+		}
 		new File(buildDir, "VERSION").text = gitVersion()
 	}
 }
