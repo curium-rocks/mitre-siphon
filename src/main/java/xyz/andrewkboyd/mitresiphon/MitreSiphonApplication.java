@@ -18,7 +18,11 @@ public class MitreSiphonApplication {
 	 * @param args passed to SpringApplication.run
 	 */
 	public static void main(String[] args) {
-		SpringApplication.run(MitreSiphonApplication.class, args);
+		try {
+			SpringApplication.run(MitreSiphonApplication.class, args);
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 }

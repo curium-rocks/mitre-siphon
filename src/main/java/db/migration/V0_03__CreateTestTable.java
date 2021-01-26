@@ -14,6 +14,9 @@ public class V0_03__CreateTestTable extends SimpleExecutionMigration {
                CREATE INDEX idx_title ON test(title);
     """;
 
+    /**
+     * Create test table in database
+     */
     public V0_03__CreateTestTable(){
         super(false);
     }
