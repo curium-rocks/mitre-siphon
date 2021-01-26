@@ -1,1 +1,1 @@
-gradlew.bat test
+gradlew.bat test jacocoReport

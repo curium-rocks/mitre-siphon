@@ -4,6 +4,7 @@ plugins {
 	id 'java'
 	id 'com.palantir.git-version' version '0.12.2'
 	id "org.flywaydb.flyway" version "7.5.1"
+	id 'jacoco'
 }
 
 group = 'xyz.andrewkboyd'
@@ -23,12 +24,15 @@ repositories {
 allprojects {
 	repositories {
 		jcenter()
+		maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
+
 	}
 	gradle.projectsEvaluated {
 		tasks.withType(JavaCompile) {
 			options.compilerArgs << "-Xlint:-processing" << "-Werror"
 		}
 	}
+	test.useTestNG()
 }
 
 dependencies {
@@ -55,6 +59,16 @@ jar {
 
 test {
 	useJUnitPlatform()
+	jacoco {
+		excludes = ['*generated*']
+	}
+	finalizedBy jacocoTestReport
+}
+jacoco {
+	toolVersion = '0.8.7-SNAPSHOT'
+}
+jacocoTestReport {
+	dependsOn test
 }
 
 task versionFile()  {
@@ -72,4 +86,23 @@ flyway {
 	user = 'postgres'
 	password = 'postgres'
 	baselineOnMigrate = true
+}
+
+task codeCoverageReport(type: JacocoReport) {
+	executionData fileTree(project.rootDir.absolutePath).include("**/build/jacoco/*.exec")
+
+	subprojects.each {
+		sourceSets it.sourceSets.main
+	}
+
+	reports {
+		xml.enabled true
+		xml.destination file("${buildDir}/reports/jacoco/report.xml")
+		html.enabled false
+		csv.enabled false
+	}
+}
+
+codeCoverageReport.dependsOn {
+	subprojects*.test
 }
