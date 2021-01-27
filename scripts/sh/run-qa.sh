@@ -1,5 +1,5 @@
 #!/bin/sh
-./gradlew test jacocoReport
+./gradlew test codeCoverageReport
 if [ -z ${CODECOV_TOKEN+x} ]; then
   echo "skipping reporting coverage to codecov"
 else
