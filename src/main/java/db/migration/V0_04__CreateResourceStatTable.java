@@ -5,19 +5,18 @@ import db.migration.helpers.SimpleExecutionMigration;
 /**
  * Create the test table on the database
  */
-public class V0_03__CreateTestTable extends SimpleExecutionMigration {
+public class V0_04__CreateResourceStatTable extends SimpleExecutionMigration {
     private static final String UP_SQL = """
-       CREATE TABLE IF NOT EXISTS test (
-                   id uuid PRIMARY KEY default gen_random_uuid(),
-                   title citext
-               );
-               CREATE INDEX idx_title ON test(title);
-    """;
+               CREATE TABLE IF NOT EXISTS resource_stats (
+                    resource varchar(256) PRIMARY KEY,
+                    last_accessed TIMESTAMPTZ
+                );
+            """;
 
     /**
      * Create test table in database
      */
-    public V0_03__CreateTestTable(){
+    public V0_04__CreateResourceStatTable(){
         super(false);
     }
 
@@ -26,3 +25,4 @@ public class V0_03__CreateTestTable extends SimpleExecutionMigration {
         return UP_SQL;
     }
 }
+

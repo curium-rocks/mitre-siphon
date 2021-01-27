@@ -4,6 +4,7 @@ plugins {
 	id 'java'
 	id 'com.palantir.git-version' version '0.12.2'
 	id "org.flywaydb.flyway" version "7.5.1"
+	id "com.github.eirnym.js2p" version "1.0"
 	id 'jacoco'
 }
 
@@ -39,8 +40,12 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-webflux'
 	implementation 'org.springframework.kafka:spring-kafka'
+	implementation 'org.springframework.boot:spring-boot-starter-quartz'
+	implementation 'org.springdoc:springdoc-openapi-ui:1.5.2'
 	implementation group: 'org.mitre.taxii', name: 'taxii', version: '1.1.0.1'
+	implementation group: 'org.mitre', name: 'stix', version: '1.2.0.2'
 	implementation 'org.postgresql:postgresql'
 	implementation 'org.flywaydb:flyway-core'
 	compileOnly 'org.projectlombok:lombok'
@@ -49,6 +54,9 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.kafka:spring-kafka-test'
 	testImplementation 'org.springframework.security:spring-security-test'
+	testImplementation 'com.squareup.okhttp3:okhttp:4.0.1'
+	testImplementation 'com.squareup.okhttp3:mockwebserver:4.0.1'
+	testImplementation 'org.awaitility:awaitility:4.0.3'
 }
 
 jar {
@@ -77,6 +85,19 @@ jacocoTestReport {
 	}
 }
 
+sourceSets {
+	main {
+		java {
+			srcDirs = ["src/main/java", "src/generated/java"]
+		}
+	}
+}
+
+javadoc {
+	exclude  "xyz/andrewkboyd/mitresiphon/generated/models"
+	source = sourceSets.main.allJava
+}
+
 task versionFile()  {
 	doLast {
 		def folder = new File(buildDir.toPath().toString())
@@ -93,3 +114,46 @@ flyway {
 	password = 'postgres'
 	baselineOnMigrate = true
 }
+
+
+jsonSchema2Pojo {
+	includeAdditionalProperties = false
+	generateBuilders = false
+	usePrimitives = false
+	source = files("${sourceSets.main.output.resourcesDir}/json")
+	targetDirectory = file("${project.rootDir}/src/generated/java")
+	targetPackage = 'xyz.andrewkboyd.mitresiphon.generated.models'
+	propertyWordDelimiters = [] as char[]
+	useLongIntegers = false
+	useBigIntegers = false
+	useDoubleNumbers = true
+	useBigDecimals = false
+	includeHashcodeAndEquals = true
+	includeToString = true
+	annotationStyle = 'jackson2'
+	customAnnotator = 'org.jsonschema2pojo.NoopAnnotator'
+	includeJsr303Annotations = false
+	sourceType = 'jsonschema'
+	removeOldOutput = false
+	outputEncoding = 'UTF-8'
+	useJodaDates = false
+	formatDateTimes = true
+	formatDates = true
+	formatTimes = true
+	initializeCollections = true
+	classNamePrefix = ""
+	classNameSuffix = ""
+	fileExtensions = [] as String[]
+	includeConstructors = false
+	parcelable = false
+	serializable = true
+	includeGetters = true
+	includeSetters = true
+	includeDynamicAccessors = false
+	includeDynamicGetters = false
+	includeDynamicSetters = false
+	includeDynamicBuilders = false
+	dateType = "java.time.LocalDate"
+	dateTimeType = "java.time.LocalDateTime"
+}
+

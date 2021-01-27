@@ -3,13 +3,13 @@ package xyz.andrewkboyd.mitresiphon;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 /**
  * Entry point for the spring boot application
  */
 @SpringBootApplication
-@EnableScheduling
 @EnableWebMvc
 public class MitreSiphonApplication {
 
@@ -18,7 +18,11 @@ public class MitreSiphonApplication {
 	 * @param args passed to SpringApplication.run
 	 */
 	public static void main(String[] args) {
-		SpringApplication.run(MitreSiphonApplication.class, args);
+		try {
+			SpringApplication.run(MitreSiphonApplication.class, args);
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 }
