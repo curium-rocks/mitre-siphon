@@ -1,14 +1,11 @@
 package xyz.andrewkboyd.mitresiphon.configuration;
 
-import org.apache.kafka.clients.admin.AdminClientConfig;
 import org.apache.kafka.clients.admin.NewTopic;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.config.TopicBuilder;
-import org.springframework.kafka.core.KafkaAdmin;
+import xyz.andrewkboyd.mitresiphon.tasks.NVDFetchTask;
 
-import java.util.HashMap;
-import java.util.Map;
 
 @Configuration
 public class Config {
@@ -16,21 +13,21 @@ public class Config {
 
     @Bean
     NewTopic createNVDCVEModifiedTopic(){
-        return TopicBuilder.name("nvd.cve.modified")
+        return TopicBuilder.name(NVDFetchTask.MODIFIED_KAFKA_TOPIC)
                 .replicas(1)
                 .build();
     }
 
     @Bean
     NewTopic createNVDCVERecentTopic(){
-        return TopicBuilder.name("nvd.cve.recent")
+        return TopicBuilder.name(NVDFetchTask.RECENT_KAFKA_TOPIC)
                 .replicas(1)
                 .build();
     }
 
     @Bean
     NewTopic createNVDCVECompleteTopic(){
-        return TopicBuilder.name("nvd.cve.complete")
+        return TopicBuilder.name(NVDFetchTask.COMPLETE_KAFKA_TOPIC)
                 .replicas(1)
                 .build();
     }

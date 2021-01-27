@@ -9,7 +9,6 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
  * Entry point for the spring boot application
  */
 @SpringBootApplication
-@EnableScheduling
 @EnableWebMvc
 public class MitreSiphonApplication {
 
