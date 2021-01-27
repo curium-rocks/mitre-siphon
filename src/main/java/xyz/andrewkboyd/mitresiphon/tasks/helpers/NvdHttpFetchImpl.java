@@ -1,9 +1,7 @@
 package xyz.andrewkboyd.mitresiphon.tasks.helpers;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
-import xyz.andrewkboyd.mitresiphon.generated.models.Nvd_cve_feed_json_1_1;
 import xyz.andrewkboyd.mitresiphon.tasks.helpers.interfaces.NvdHttpFetch;
 
 
