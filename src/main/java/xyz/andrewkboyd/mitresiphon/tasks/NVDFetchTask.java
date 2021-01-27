@@ -14,18 +14,23 @@ import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.concurrent.ExecutionException;
 
+import org.springframework.transaction.annotation.Transactional;
+import xyz.andrewkboyd.mitresiphon.dao.interfaces.ResourceStatDAO;
 import xyz.andrewkboyd.mitresiphon.tasks.helpers.interfaces.HttpModifiedCheck;
 import xyz.andrewkboyd.mitresiphon.tasks.helpers.interfaces.NvdHttpFetch;
+
+
 
 /**
  * Tasks to fetch data from NVD and publish a message when a change is detected
  */
 @DisallowConcurrentExecution
-public final class NVDFetchTask extends QuartzJobBean {
+public class NVDFetchTask extends QuartzJobBean {
 
     private final KafkaTemplate<String, String> kafkaTemplate;
     private final HttpModifiedCheck modifiedCheck;
     private final NvdHttpFetch fetcher;
+    private final ResourceStatDAO resourceDAO;
 
     private static final Logger LOG = LoggerFactory.getLogger(NVDFetchTask.class);
 
@@ -47,17 +52,22 @@ public final class NVDFetchTask extends QuartzJobBean {
      */
     public NVDFetchTask(KafkaTemplate<String, String> template,
                         HttpModifiedCheck modCheck,
-                        NvdHttpFetch nvdHttpFetch) {
+                        NvdHttpFetch nvdHttpFetch,
+                        ResourceStatDAO resource) {
         kafkaTemplate = template;
         modifiedCheck = modCheck;
         fetcher = nvdHttpFetch;
+        resourceDAO = resource;
     }
 
 
-    private void checkAndPublish(URI resourceUri, ZonedDateTime lastFetchTime, String topic) throws IOException, ExecutionException, InterruptedException {
+    private boolean checkAndPublish(URI resourceUri, ZonedDateTime lastFetchTime, String topic) throws IOException, ExecutionException, InterruptedException {
         if(Boolean.TRUE.equals(modifiedCheck.isNewDataAvailable(lastFetchTime, resourceUri).get())) {
             String feedResponse = fetcher.fetch(resourceUri).get();
             kafkaTemplate.send(topic, feedResponse);
+            return true;
+        } else {
+            return false;
         }
     }
 
@@ -70,6 +80,7 @@ public final class NVDFetchTask extends QuartzJobBean {
      * @param context job context information
      * @see #execute
      */
+    @Transactional
     @Override
     protected void executeInternal(JobExecutionContext context) throws JobExecutionException {
         LOG.trace("Starting fetch nvd task");
@@ -77,10 +88,12 @@ public final class NVDFetchTask extends QuartzJobBean {
         String url = parameterMap.getString(URL_PARM_NAME);
         String kafkaTopic = parameterMap.getString(KAFKA_TOPIC_PARM_NAME);
 
-        //TODO: add fetch into data store based on url to get a last fetch time
-        LOG.info("Starting fetch for URL {}, and kafka topic {}", url, kafkaTopic);
+        LOG.debug("Starting fetch for URL {}, and kafka topic {}", url, kafkaTopic);
         try {
-            checkAndPublish(URI.create(url), null, kafkaTopic);
+            if(checkAndPublish(URI.create(url), resourceDAO.getLastAccessTimeForResource(url), kafkaTopic)){
+                LOG.info("Fetched new data from {}, published to kafka {}", url, kafkaTopic);
+                resourceDAO.recordAccessTime(url, ZonedDateTime.now());
+            }
         } catch (IOException | ExecutionException  e) {
            throw new JobExecutionException(e);
         } catch(InterruptedException e) {

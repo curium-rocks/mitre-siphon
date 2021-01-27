@@ -1,4 +1,4 @@
-package xyz.andrewkboyd.mitresiphon.dao;
+package xyz.andrewkboyd.mitresiphon.entities;
 
 import lombok.Data;
 

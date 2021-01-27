@@ -1,17 +1,16 @@
 package xyz.andrewkboyd.mitresiphon.tasks;
 
 
-import kafka.Kafka;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.quartz.JobDataMap;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.test.context.junit4.SpringRunner;
+import xyz.andrewkboyd.mitresiphon.dao.ResourceStatDAOImpl;
+import xyz.andrewkboyd.mitresiphon.dao.interfaces.ResourceStatDAO;
 import xyz.andrewkboyd.mitresiphon.tasks.helpers.interfaces.HttpModifiedCheck;
 import xyz.andrewkboyd.mitresiphon.tasks.helpers.interfaces.NvdHttpFetch;
 
@@ -30,12 +29,14 @@ class NVDFetchTaskTests {
     HttpModifiedCheck modifiedCheck;
     KafkaTemplate<String, String> kafkaTemplate;
     JobExecutionContext context;
+    ResourceStatDAO resourceDAO;
 
     public NVDFetchTaskTests() {
         this.fetch = Mockito.mock(NvdHttpFetch.class);
         this.modifiedCheck = Mockito.mock(HttpModifiedCheck.class);
         this.kafkaTemplate = Mockito.mock(KafkaTemplate.class);
         this.context = Mockito.mock(JobExecutionContext.class);
+        this.resourceDAO = Mockito.mock(ResourceStatDAOImpl.class);
     }
 
     @Test
@@ -49,7 +50,7 @@ class NVDFetchTaskTests {
         testMap.put(NVDFetchTask.KAFKA_TOPIC_PARM_NAME, "TEST");
         Mockito.when(context.getMergedJobDataMap()).thenReturn(new JobDataMap(testMap));
 
-        NVDFetchTask fetchTask = new NVDFetchTask(kafkaTemplate,modifiedCheck, fetch);
+        NVDFetchTask fetchTask = new NVDFetchTask(kafkaTemplate,modifiedCheck, fetch, resourceDAO);
         fetchTask.executeInternal(context);
         Mockito.verify(fetch, never()).fetch(resourceUri);
 
@@ -65,7 +66,7 @@ class NVDFetchTaskTests {
         testMap.put(NVDFetchTask.KAFKA_TOPIC_PARM_NAME, "TEST");
         Mockito.when(context.getMergedJobDataMap()).thenReturn(new JobDataMap(testMap));
         Mockito.when(fetch.fetch(any())).thenReturn(CompletableFuture.completedFuture("TEST"));
-        NVDFetchTask fetchTask = new NVDFetchTask(kafkaTemplate,modifiedCheck, fetch);
+        NVDFetchTask fetchTask = new NVDFetchTask(kafkaTemplate,modifiedCheck, fetch, resourceDAO);
         fetchTask.executeInternal(context);
         //TODO: refactor to use awaitility to wait condition with timeout, execute doesn't return future and code behind leverages futures
         Thread.sleep(5000);

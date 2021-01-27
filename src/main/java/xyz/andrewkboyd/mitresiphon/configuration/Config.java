@@ -7,9 +7,9 @@ import org.springframework.kafka.config.TopicBuilder;
 import xyz.andrewkboyd.mitresiphon.tasks.NVDFetchTask;
 
 
+
 @Configuration
 public class Config {
-
 
     @Bean
     NewTopic createNVDCVEModifiedTopic(){
