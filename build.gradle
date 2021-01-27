@@ -69,6 +69,12 @@ jacoco {
 }
 jacocoTestReport {
 	dependsOn test
+	reports {
+		xml.enabled true
+		xml.destination file("${buildDir}/reports/jacoco/report.xml")
+		html.enabled false
+		csv.enabled false
+	}
 }
 
 task versionFile()  {
@@ -86,23 +92,4 @@ flyway {
 	user = 'postgres'
 	password = 'postgres'
 	baselineOnMigrate = true
-}
-
-task codeCoverageReport(type: JacocoReport) {
-	executionData fileTree(project.rootDir.absolutePath).include("**/build/jacoco/*.exec")
-
-	subprojects.each {
-		sourceSets it.sourceSets.main
-	}
-
-	reports {
-		xml.enabled true
-		xml.destination file("${buildDir}/reports/jacoco/report.xml")
-		html.enabled false
-		csv.enabled false
-	}
-}
-
-codeCoverageReport.dependsOn {
-	subprojects*.test
 }
