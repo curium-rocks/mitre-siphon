@@ -54,7 +54,7 @@ public class CveArchiver {
     }
 
     @KafkaListener(topics = NVDFetchTask.COMPLETE_KAFKA_TOPIC, groupId = "cve-pg-archiver-group")
-    public void HandleCompleteCve(String completeCveUpdate)  {
+    public void handleCompleteCve(String completeCveUpdate)  {
         LOG.debug("Received complete cve update");
         try {
             Nvd_cve_feed_json_1_1 update = deserialize(completeCveUpdate);
