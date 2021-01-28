@@ -10,7 +10,6 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
  * Entry point for the spring boot application
  */
 @SpringBootApplication
-@EnableWebMvc
 public class MitreSiphonApplication {
 
 	/**
