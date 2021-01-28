@@ -46,6 +46,7 @@ public class NVDFetchTask extends QuartzJobBean {
     public static final String RECENT_KAFKA_TOPIC = "nvd.cve.recent";
     public static final String COMPLETE_KAFKA_TOPIC = "nvd.cve.complete";
 
+
     /**
      * Create task runner for fetching CVE information from NVD JSON list
      * @param template kafka template for publishing NVD data

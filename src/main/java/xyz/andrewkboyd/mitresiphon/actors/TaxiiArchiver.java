@@ -1,4 +1,4 @@
-package xyz.andrewkboyd.mitresiphon.archivers;
+package xyz.andrewkboyd.mitresiphon.actors;
 
 /**
  * Actor on the incoming mitre taxii data
