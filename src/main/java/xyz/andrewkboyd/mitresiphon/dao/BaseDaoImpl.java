@@ -1,7 +1,6 @@
 package xyz.andrewkboyd.mitresiphon.dao;
 
 import org.hibernate.Session;
-import org.hibernate.Transaction;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 

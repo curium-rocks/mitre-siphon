@@ -11,6 +11,7 @@ import xyz.andrewkboyd.mitresiphon.tasks.NVDFetchTask;
 @Configuration
 public class Config {
 
+
     @Bean
     NewTopic createNVDCVEModifiedTopic(){
         return TopicBuilder.name(NVDFetchTask.MODIFIED_KAFKA_TOPIC)

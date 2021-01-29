@@ -1,17 +1,17 @@
 package xyz.andrewkboyd.mitresiphon;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.scheduling.annotation.EnableScheduling;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 /**
  * Entry point for the spring boot application
  */
 @SpringBootApplication
-@EnableWebMvc
 public class MitreSiphonApplication {
+
+	private static final Logger LOG = LoggerFactory.getLogger(MitreSiphonApplication.class);
 
 	/**
 	 * Launch the spring application
@@ -21,7 +21,7 @@ public class MitreSiphonApplication {
 		try {
 			SpringApplication.run(MitreSiphonApplication.class, args);
 		} catch(Exception e) {
-			e.printStackTrace();
+			LOG.error("Error: ", e);
 		}
 	}
 

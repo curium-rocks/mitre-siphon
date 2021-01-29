@@ -1,7 +1,5 @@
 package xyz.andrewkboyd.mitresiphon.dao.interfaces;
 
-import org.springframework.transaction.annotation.Transactional;
-import xyz.andrewkboyd.mitresiphon.entities.CVE;
 import xyz.andrewkboyd.mitresiphon.entities.ResourceStat;
 
 import java.time.ZonedDateTime;
