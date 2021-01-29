@@ -21,4 +21,4 @@ FROM openjdk:15-jdk-alpine AS RUNTIME
 WORKDIR /app
 COPY --from=JAVA_BUILD /app_build/build/libs/ /app/
 COPY --from=JAVA_BUILD /app_build/build/VERSION /app/
-CMD /usr/bin/java -jar -Dspring.profiles.active=prod mitre-siphon-$(cat /app/VERSION).jar
+CMD /opt/openjdk-15/bin/java -jar -Dspring.profiles.active=prod mitre-siphon-$(cat /app/VERSION).jar
