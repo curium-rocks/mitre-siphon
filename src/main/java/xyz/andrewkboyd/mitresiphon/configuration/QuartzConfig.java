@@ -1,6 +1,11 @@
 package xyz.andrewkboyd.mitresiphon.configuration;
 
-import org.quartz.*;
+
+import org.quartz.JobBuilder;
+import org.quartz.JobDetail;
+import org.quartz.Trigger;
+import org.quartz.TriggerBuilder;
+import org.quartz.SimpleScheduleBuilder;
 import org.springframework.beans.factory.annotation.Qualifier;
 
 import org.springframework.context.annotation.Bean;

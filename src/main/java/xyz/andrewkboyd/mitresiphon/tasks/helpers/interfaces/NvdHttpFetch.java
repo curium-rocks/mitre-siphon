@@ -1,6 +1,5 @@
 package xyz.andrewkboyd.mitresiphon.tasks.helpers.interfaces;
 
-import xyz.andrewkboyd.mitresiphon.generated.models.Nvd_cve_feed_json_1_1;
 
 import java.io.IOException;
 import java.net.URI;

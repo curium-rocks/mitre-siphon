@@ -3,7 +3,10 @@ package xyz.andrewkboyd.mitresiphon.entities;
 import lombok.Data;
 import org.hibernate.Session;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.time.ZonedDateTime;
 
 @Entity
