@@ -19,11 +19,10 @@ docker-compose --file docker-compose.test.yml run sut
 ```
 
 ## Getting Started
-TODO: add screenshots and instructions of how to launch and interact wtih the application.
+Run `docker-compose up` to launch the application. Once everything has started up you will be able to access the application at http://localost:8080/ the default credentials are test:test. Once you are logged in you will have access to the swagger ui to interact with the REST API. This will allow you to do paged multi term searches against the saved NVD CVE data.
 
-## Deployment
+![image](https://user-images.githubusercontent.com/8363252/106229649-9adac180-61b3-11eb-8aa9-614ebfb1dcf3.png)
 
-TODO: will use a helm chart to deploy into a kubernetes cluster
 
 ## Built With
 
@@ -32,8 +31,9 @@ TODO: will use a helm chart to deploy into a kubernetes cluster
 - [Quartz] (https://www.quartz-scheduler.org/)
 - [Kafka] (http://kafka.apache.org/)
 - [PostgreSQL] (https://www.postgresql.org/)
-- [FlyWay] (https://www.postgresql.org/)
+- [FlyWay] (https://flywaydb.org/documentation/)
 - [Hibernate] (https://hibernate.org/)
+- [OpenAPI3] (https://swagger.io/blog/news/announcing-openapi-3-0/)
 
 
 ## Versioning
