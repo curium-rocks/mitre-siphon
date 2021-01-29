@@ -3,12 +3,13 @@ package xyz.andrewkboyd.mitresiphon.dto;
 import lombok.Data;
 
 
+import java.math.BigInteger;
 import java.util.List;
 
 public @Data
 class SearchResult {
-    private long totalMatches;
-    private long offset;
+    private BigInteger totalMatches;
+    private BigInteger offset;
     private long count;
     private List<Object> matches;
 }

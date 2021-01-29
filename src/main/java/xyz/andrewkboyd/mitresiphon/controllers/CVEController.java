@@ -9,6 +9,7 @@ import xyz.andrewkboyd.mitresiphon.dto.SearchCriteria;
 import xyz.andrewkboyd.mitresiphon.dto.SearchResult;
 
 import javax.validation.constraints.Size;
+import java.math.BigInteger;
 import java.util.List;
 
 /**
@@ -25,7 +26,7 @@ public class CVEController {
     }
 
     @GetMapping("/search, produces=application/json")
-    public SearchResult searchCVEList(@RequestParam @Size(min = 0) long offset,
+    public SearchResult searchCVEList(@RequestParam @Size(min = 0) BigInteger offset,
                                       @RequestParam @Size(min = 0, max = 100) long count,
                                       @RequestParam @Size(min = 1, max = 10) List<String> terms) {
         SearchCriteria criteria = new SearchCriteria();

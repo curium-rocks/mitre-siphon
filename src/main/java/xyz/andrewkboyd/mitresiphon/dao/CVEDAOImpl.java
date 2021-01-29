@@ -6,6 +6,7 @@ import xyz.andrewkboyd.mitresiphon.dto.SearchCriteria;
 import xyz.andrewkboyd.mitresiphon.dto.SearchResult;
 import xyz.andrewkboyd.mitresiphon.entities.CVE;
 
+import java.math.BigInteger;
 import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -25,18 +26,22 @@ public class CVEDAOImpl extends BaseDaoImpl<CVE> implements CVEDAO {
             }
         }
         var query =
-                session.createQuery(String.format("from cve where to_tsvector(cve.description) @@ to_tsquery('%s') order by id offset :offset limit :limit",sb.toString()), CVE.class);
+                session.createNativeQuery(String.format("select * from cve where to_tsvector(cve.description) @@ to_tsquery(%s) order by id offset :offset limit :limit",sb.toString()), CVE.class);
 
         var countQuery =
-                session.createQuery(String.format("select count(*) from cve where to_tsvector(cve.description) @@ to_tsquery('%s') offset :offset limit :limit",sb.toString()), Long.class);
+                session.createNativeQuery(String.format("select count(*) from cve where to_tsvector(cve.description) @@ to_tsquery(%s)",sb.toString()));
 
 
         for(int i = 0; i<criteria.getTerms().size(); i++) {
             query.setParameter(String.format("param%s", i),criteria.getTerms().get(i));
-            query.setParameter(String.format("param%s", i),criteria.getTerms().get(i));
+            countQuery.setParameter(String.format("param%s", i),criteria.getTerms().get(i));
         }
+
+        query.setParameter("limit", criteria.getCount());
+        query.setParameter("offset", criteria.getOffset());
+
         var result = new SearchResult();
-        result.setTotalMatches(countQuery.uniqueResult());
+        result.setTotalMatches((BigInteger) countQuery.uniqueResult());
         result.setMatches(query.stream().collect(Collectors.toList()));
         result.setOffset(criteria.getOffset());
         result.setCount(criteria.getCount());
