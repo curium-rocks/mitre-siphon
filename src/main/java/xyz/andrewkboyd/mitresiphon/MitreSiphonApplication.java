@@ -1,5 +1,7 @@
 package xyz.andrewkboyd.mitresiphon;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -9,6 +11,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class MitreSiphonApplication {
 
+	private static final Logger LOG = LoggerFactory.getLogger(MitreSiphonApplication.class);
+
 	/**
 	 * Launch the spring application
 	 * @param args passed to SpringApplication.run
@@ -17,7 +21,7 @@ public class MitreSiphonApplication {
 		try {
 			SpringApplication.run(MitreSiphonApplication.class, args);
 		} catch(Exception e) {
-			e.printStackTrace();
+			LOG.error("Error: ", e);
 		}
 	}
 
