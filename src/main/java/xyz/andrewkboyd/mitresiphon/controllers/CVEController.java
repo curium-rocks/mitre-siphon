@@ -25,7 +25,7 @@ public class CVEController {
         this.cveDao = cvedao;
     }
 
-    @GetMapping("/search, produces=application/json")
+    @GetMapping(value = "/search")
     public SearchResult searchCVEList(@RequestParam @Size(min = 0) BigInteger offset,
                                       @RequestParam @Size(min = 0, max = 100) long count,
                                       @RequestParam @Size(min = 1, max = 10) List<String> terms) {
