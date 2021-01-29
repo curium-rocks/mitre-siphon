@@ -44,7 +44,10 @@ Run `docker-compose up` to launch the application. Once everything has started u
 - Helm chart
 - Increase test coverage and cases covered in tests
 - Add a UI for searching the data
-- Cleanup spring active profiles
+- Smarter spring active profile switching based on environment
+- More documentation on methods to enrich the data available for javadoc task and OpenAPI3
+- More validation of input
+
 
 ## License
 
