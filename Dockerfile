@@ -3,8 +3,10 @@ WORKDIR /app_build/
 COPY ./ ./
 RUN /app_build/scripts/sh/gradle-build.sh
 
-FROM openjdk:17-alpine AS RUNTIME
+FROM eclipse-temurin:17-alpine AS RUNTIME
+ARG VERSION
 WORKDIR /app
 COPY --from=JAVA_BUILD /app_build/build/libs/ /app/
 COPY --from=JAVA_BUILD /app_build/build/VERSION /app/
-CMD /opt/openjdk-17/bin/java -jar -Dspring.profiles.active=prod mitre-siphon-$(cat /app/VERSION).jar
+COPY ./scripts/sh/docker-entrypoint.sh /app/docker-entrypoint.sh
+ENTRYPOINT [ "/app/docker-entrypoint.sh" ]
