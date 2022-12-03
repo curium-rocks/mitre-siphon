@@ -38,6 +38,7 @@ jobs:
       with:
         java-version: '15'
         java-package: jdk
+        distribution: 'zulu'
     - name: Checkout repository
       uses: actions/checkout@v3
 
