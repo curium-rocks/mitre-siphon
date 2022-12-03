@@ -10,7 +10,17 @@ plugins {
 
 group = 'xyz.andrewkboyd'
 version = gitVersion()
-sourceCompatibility = '15'
+sourceCompatibility = '17'
+
+ext {
+	springDocVersion = "1.6.13"
+	mitreTaxiiVersion = '1.1.0.1'
+	mitreStixVersion = '1.2.0.2'
+	junitVersion = '5.8.1'
+	awaitiliyVersion = '4.2.0'
+	okhttpVersion = '4.0.1'
+}
+
 
 configurations {
 	compileOnly {
@@ -43,21 +53,22 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-webflux'
 	implementation 'org.springframework.kafka:spring-kafka'
 	implementation 'org.springframework.boot:spring-boot-starter-quartz'
-	implementation 'org.springdoc:springdoc-openapi-ui:1.6.13'
-	implementation 'org.springdoc:springdoc-openapi-security:1.5.3'
-	implementation group: 'org.mitre.taxii', name: 'taxii', version: '1.1.0.1'
-	implementation group: 'org.mitre', name: 'stix', version: '1.2.0.2'
+	implementation group: 'org.springdoc', name: 'springdoc-openapi-ui', version: springDocVersion
+	implementation group: 'org.springdoc', name: 'springdoc-openapi-security', version: springDocVersion
+	implementation group: 'org.mitre.taxii', name: 'taxii', version: mitreTaxiiVersion
+	implementation group: 'org.mitre', name: 'stix', version: mitreStixVersion
 	implementation 'org.postgresql:postgresql'
 	implementation 'org.flywaydb:flyway-core'
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
-	testCompile group: 'junit', name: 'junit', version: '4.13.2'
+	testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: junitVersion
+  testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: junitVersion
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.kafka:spring-kafka-test'
 	testImplementation 'org.springframework.security:spring-security-test'
-	testImplementation 'com.squareup.okhttp3:okhttp:4.0.1'
-	testImplementation 'com.squareup.okhttp3:mockwebserver:4.0.1'
-	testImplementation 'org.awaitility:awaitility:4.2.0'
+	testImplementation group: 'com.squareup.okhttp3', name: 'okhttp', version: okhttpVersion
+	testImplementation group: 'com.squareup.okhttp3', name: 'mockwebserver', version: okhttpVersion
+	testImplementation group: 'org.awaitility', name: 'awaitility', version: awaitiliyVersion
 }
 
 jar {
