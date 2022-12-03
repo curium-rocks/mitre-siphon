@@ -6,6 +6,7 @@ plugins {
 	id "org.flywaydb.flyway" version "9.8.3"
 	id "com.github.eirnym.js2p" version "1.0"
 	id 'jacoco'
+	id 'org.eclipse.jkube.kubernetes' version '1.10.1'
 }
 
 group = 'rocks.curium'
@@ -167,5 +168,26 @@ jsonSchema2Pojo {
 	includeDynamicBuilders = false
 	dateType = "java.time.LocalDate"
 	dateTimeType = "java.time.LocalDateTime"
+}
+
+kubernetes {
+    resources {
+        labels {
+            all {
+            }
+        }
+    }
+    generator {
+        config {
+            'spring-boot' {
+                color = 'always'
+            }
+        }
+    }
+    helm {
+        maintainers = [{
+            name = 'bryopsida'
+        }]
+    }
 }
 
