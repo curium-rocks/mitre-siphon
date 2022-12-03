@@ -20,6 +20,8 @@ ext {
 	junitVersion = '5.8.1'
 	awaitiliyVersion = '4.2.0'
 	okhttpVersion = '4.0.1'
+	javaxPersistenceVersion = '2.2'
+	javaxValidationVersion = '3.0.2'
 }
 
 
@@ -58,6 +60,8 @@ dependencies {
 	implementation group: 'org.springdoc', name: 'springdoc-openapi-security', version: springDocVersion
 	implementation group: 'org.mitre.taxii', name: 'taxii', version: mitreTaxiiVersion
 	implementation group: 'org.mitre', name: 'stix', version: mitreStixVersion
+	implementation group: 'javax.persistence', name: 'javax.persistence-api', version: javaxPersistenceVersion
+	implementation group: 'jakarta.validation', name: 'jakarta.validation-api', version: javaxValidationVersion
 	implementation 'org.postgresql:postgresql'
 	implementation 'org.flywaydb:flyway-core'
 	compileOnly 'org.projectlombok:lombok'

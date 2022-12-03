@@ -8,7 +8,7 @@ import rocks.curium.mitresiphon.dao.interfaces.CVEDAO;
 import rocks.curium.mitresiphon.dto.SearchCriteria;
 import rocks.curium.mitresiphon.dto.SearchResult;
 
-import javax.validation.constraints.Size;
+import jakarta.validation.constraints.Size;
 import java.math.BigInteger;
 import java.util.List;
 
