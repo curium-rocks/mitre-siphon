@@ -66,10 +66,7 @@ dependencies {
 	implementation 'org.flywaydb:flyway-core'
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
-	testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: junitVersion
-  testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: junitVersion
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	testImplementation 'org.springframework.kafka:spring-kafka-test'
 	testImplementation 'org.springframework.security:spring-security-test'
 	testImplementation group: 'com.squareup.okhttp3', name: 'okhttp', version: okhttpVersion
 	testImplementation group: 'com.squareup.okhttp3', name: 'mockwebserver', version: okhttpVersion
@@ -82,16 +79,14 @@ jar {
 	}
 }
 
-test {
+tasks.named('test') {
 	useJUnitPlatform()
 	jacoco {
 		excludes = ['*generated*']
 	}
 	finalizedBy jacocoTestReport
 }
-jacoco {
-	toolVersion = '0.8.7-SNAPSHOT'
-}
+
 jacocoTestReport {
 	dependsOn test
 	reports {
