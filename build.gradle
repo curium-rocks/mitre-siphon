@@ -11,6 +11,7 @@ plugins {
 group = 'xyz.andrewkboyd'
 version = gitVersion()
 sourceCompatibility = '17'
+targetCompatibility = '17'
 
 ext {
 	springDocVersion = "1.6.13"
