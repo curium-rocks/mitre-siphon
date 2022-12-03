@@ -17,7 +17,7 @@ ext {
 	springDocVersion = "1.6.13"
 	mitreTaxiiVersion = '1.1.0.1'
 	mitreStixVersion = '1.2.0.2'
-	junitVersion = '5.8.1'
+	junitVersion = '5.9.1'
 	awaitiliyVersion = '4.2.0'
 	okhttpVersion = '4.0.1'
 }
