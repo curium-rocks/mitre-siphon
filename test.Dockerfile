@@ -1,8 +1,8 @@
-FROM alpine:3.13 AS LOCAL_FILES
+FROM alpine:3.17 AS LOCAL_FILES
 WORKDIR /app_files/
 ADD ./ ./
 
-FROM openjdk:15-jdk-alpine AS TEST
+FROM openjdk:17-jdk-alpine AS TEST
 WORKDIR /app_test/
 COPY --from=LOCAL_FILES /app_files/ /app_test/
 RUN chmod +x /app_test/scripts/sh/run-qa.sh
