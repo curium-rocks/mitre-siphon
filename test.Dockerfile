@@ -1,4 +1,4 @@
-FROM eclipse-temurin:17-jdk-alpine AS TEST
+FROM ghcr.io/curium-rocks/alpine-zulu-jdk:main AS TEST
 WORKDIR /app_test/
 COPY ./ /app_test/
 
