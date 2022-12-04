@@ -76,7 +76,6 @@ public class NVDFetchTask extends QuartzJobBean {
    * @param context job context information
    * @see #execute
    */
-  @Transactional
   @Override
   protected void executeInternal(JobExecutionContext context) throws JobExecutionException {
     LOG.trace("Starting fetch nvd task");
