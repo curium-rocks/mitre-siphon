@@ -72,3 +72,7 @@ jobs:
     uses: curium-rocks/flows/.github/workflows/oci-build-image.yml@main
     with:
       image_name: mitre-siphon
+  test-deploy:
+    needs: build-container
+    name: Test Deploy
+    uses: curium-rocks/flows/.github/workflows/helm-qa.yml@main
