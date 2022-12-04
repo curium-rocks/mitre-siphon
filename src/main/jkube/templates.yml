@@ -7,3 +7,12 @@ parameters:
   - name: helm_namespace
     value: |
       {{ .Release.Namespace }}
+  - name: image_repo
+    value: |
+      {{ .Values.image.repo }}
+  - name: image_tag
+    value: |
+      {{ .Values.image.tag }}
+  - name: image_pull_policy
+    value: |
+      {{ .Values.image.pullPolicy }}

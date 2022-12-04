@@ -17,7 +17,9 @@ spec:
           configMap:
             name: ${name}-config
       containers:
-        - resources:
+        - image: ${image_repo}:${image_tag}
+          imagePullPolicy: ${image_pull_policy}
+          resources:
             limits:
               memory: ${limits_memory}
             requests:

@@ -215,6 +215,23 @@ kubernetes {
 			'cve',
 			'full-text-search'
 		]
+		parameters = [
+			{
+				name = 'image.repo'
+				value = 'ghcr.io/curium-rocks/mitre-siphon'
+				required = false
+			},
+			{
+				name = 'image.tag'
+				value = 'latest'
+				required = false
+			},
+			{
+				name = 'image.pullPolicy'
+				value = 'Always'
+				required = false
+			}
+		]
 		dependencies = [
 			{
 				name = 'kafka'
