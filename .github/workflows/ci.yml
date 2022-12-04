@@ -62,16 +62,24 @@ jobs:
           arguments: versionFile spotlessCheck test jacocoReport sonar
         env:
           SONAR_TOKEN: ${{ secrets.SONARQUBE_KEY }}
+      - name: Upload Build
+        uses: actions/upload-artifact@v3
+        with:
+          name: build
+          path: build
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v3
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+
   build-container:
     needs: test
     name: "Build container image"
     uses: curium-rocks/flows/.github/workflows/oci-build-image.yml@main
     with:
       image_name: mitre-siphon
+      download_artifact: build
+
   test-deploy:
     needs: build-container
     name: Test Deploy
