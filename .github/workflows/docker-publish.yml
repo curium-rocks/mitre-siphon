@@ -60,6 +60,8 @@ jobs:
         with:
           gradle-version: 7.6
           arguments:  versionFile test jacocoReport sonar
+        env:
+          SONAR_TOKEN: ${{ secrets.SONARQUBE_KEY }}
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v3
         env:
