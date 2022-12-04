@@ -215,6 +215,7 @@ kubernetes {
 
 spotless {
 	java {
+		target 'src/main/**/*.java', 'src/test/**/*.java'
 		importOrder()
 		removeUnusedImports()
 		googleJavaFormat()
