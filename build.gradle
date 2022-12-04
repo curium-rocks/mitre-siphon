@@ -41,7 +41,6 @@ allprojects {
 	repositories {
 		jcenter()
 		maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
-
 	}
 	gradle.projectsEvaluated {
 		tasks.withType(JavaCompile) {
@@ -102,7 +101,10 @@ jacocoTestReport {
 sourceSets {
 	main {
 		java {
-			srcDirs = ["src/main/java", "src/generated/java"]
+			srcDirs = [
+				"src/main/java",
+				"src/generated/java"
+			]
 		}
 	}
 }
@@ -175,43 +177,55 @@ kubernetes {
 	buildStrategy = 'docker'
 	image {
 		name = 'ghcr.io/curium-rocks/mitre-siphon'
-		 build {
-				dockerFile = 'Dockerfile'
-				contextDir = file('.')
-				filter = '@'
-			}
+		build {
+			dockerFile = 'Dockerfile'
+			contextDir = file('.')
+			filter = '@'
+		}
 	}
 	resources {
 		labels {
-				all {
-				}
+			all {
+			}
 		}
 		configMap {
-      name = 'config'
-      entries = [{
-        file = 'src/main/resources/application.k8s.properties'
-      }]
-    }
+			name = 'config'
+			entries = [
+				{
+					file = 'src/main/resources/application.k8s.properties'
+				}
+			]
+		}
 	}
 	generator {
-			config {
-					'spring-boot' {
-							color = 'always'
-					}
+		config {
+			'spring-boot' {
+				color = 'always'
 			}
+		}
 	}
 	helm {
-			maintainers = [{
-					name = 'bryopsida'
-			}]
+		maintainers = [
+			{
+				name = 'bryopsida'
+			}
+		]
 	}
 }
 
 spotless {
-  java {
-    importOrder()
-    removeUnusedImports()
-    googleJavaFormat()
-    formatAnnotations()
-  }
+	java {
+		importOrder()
+		removeUnusedImports()
+		googleJavaFormat()
+		formatAnnotations()
+	}
+	format 'styling', {
+		target '**/*.json', '**/*.yml', '**/*.yaml', '**/*.yml', '**/*.md'
+		prettier()
+	}
+	groovyGradle {
+		target '*.gradle'
+		greclipse()
+	}
 }

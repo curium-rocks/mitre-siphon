@@ -6,4 +6,4 @@ parameters:
     value: "256Mi"
   - name: helm_namespace
     value: |
-        {{ .Release.Namespace }}
+      {{ .Release.Namespace }}
