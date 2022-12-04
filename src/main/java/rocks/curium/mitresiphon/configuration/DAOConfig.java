@@ -10,13 +10,13 @@ import rocks.curium.mitresiphon.dao.interfaces.ResourceStatDAO;
 @Configuration
 public class DAOConfig {
 
-    @Bean
-    ResourceStatDAO getResourceStateDAO(){
-        return new ResourceStatDAOImpl();
-    }
+  @Bean
+  ResourceStatDAO getResourceStateDAO() {
+    return new ResourceStatDAOImpl();
+  }
 
-    @Bean
-    CVEDAO getCVEDAO(){
-        return new CVEDAOImpl();
-    }
+  @Bean
+  CVEDAO getCVEDAO() {
+    return new CVEDAOImpl();
+  }
 }

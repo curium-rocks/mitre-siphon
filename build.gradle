@@ -7,10 +7,11 @@ plugins {
 	id "com.github.eirnym.js2p" version "1.0"
 	id 'jacoco'
 	id 'org.eclipse.jkube.kubernetes' version '1.10.1'
+	id "com.diffplug.spotless" version "6.12.0"
 }
 
 group = 'rocks.curium'
-version = gitVersion()
+version = gitVersion().replace(".dirty", "-dirty")
 sourceCompatibility = '17'
 targetCompatibility = '17'
 
@@ -117,7 +118,7 @@ task versionFile()  {
 		if( !folder.exists() ) {
 			folder.mkdirs()
 		}
-		new File(buildDir, "VERSION").text = gitVersion()
+		new File(buildDir, "VERSION").text = project.version
 	}
 }
 
@@ -171,23 +172,46 @@ jsonSchema2Pojo {
 }
 
 kubernetes {
-    resources {
-        labels {
-            all {
-            }
-        }
+	buildStrategy = 'docker'
+	image {
+		name = 'ghcr.io/curium-rocks/mitre-siphon'
+		 build {
+				dockerFile = 'Dockerfile'
+				contextDir = file('.')
+				filter = '@'
+			}
+	}
+	resources {
+		labels {
+				all {
+				}
+		}
+		configMap {
+      name = 'config'
+      entries = [{
+        file = 'src/main/resources/application.k8s.properties'
+      }]
     }
-    generator {
-        config {
-            'spring-boot' {
-                color = 'always'
-            }
-        }
-    }
-    helm {
-        maintainers = [{
-            name = 'bryopsida'
-        }]
-    }
+	}
+	generator {
+			config {
+					'spring-boot' {
+							color = 'always'
+					}
+			}
+	}
+	helm {
+			maintainers = [{
+					name = 'bryopsida'
+			}]
+	}
 }
 
+spotless {
+  java {
+    importOrder()
+    removeUnusedImports()
+    googleJavaFormat()
+    formatAnnotations()
+  }
+}

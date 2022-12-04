@@ -3,9 +3,6 @@ metadata:
   labels:
     project: ${name}
     version: ${version}
-  annotations:
-    jkube.helm.sh/expression-example: ${golang_expression}
-    jkube.helm.sh/expression-example-scalar: ${golang_expression_scalar}
 spec:
   replicas: 1
   template:
