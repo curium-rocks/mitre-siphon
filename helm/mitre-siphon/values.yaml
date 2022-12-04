@@ -23,7 +23,7 @@ securityContext:
   runAsNonRoot: true
   runAsUser: 1000
   privileged: false
-  allowEscaltion: false
+  allowPrivilegeEscalation: false
 service:
   type: ClusterIP
   port: 80
@@ -54,3 +54,7 @@ autoscaling:
 nodeSelector: {}
 tolerations: []
 affinity: {}
+kafka:
+  enabled: true
+postgresql:
+  enabled: true
