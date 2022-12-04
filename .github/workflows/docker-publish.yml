@@ -17,20 +17,26 @@ jobs:
   test:
     name: "Test"
     runs-on: ubuntu-latest
-    environment: ci
     steps:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
-      - name: Run tests
-        run: |
-          if [ -f docker-compose.test.yml ]; then
-            docker-compose --file docker-compose.test.yml build
-            ci_env=`bash <(curl -s https://codecov.io/env)`
-            docker-compose --file docker-compose.test.yml run $ci_env -e CI=true -e CODECOV_TOKEN="${{ secrets.CODECOV_TOKEN }}" sut
-          else
-            docker build . --file Dockerfile
-          fi
+      - uses: actions/setup-java@v3
+        with:
+          distribution: 'zulu'
+          java-version: '17'
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - name: Setup and execute Gradle 'test' task
+        uses: gradle/gradle-build-action@v2
+        with:
+          gradle-version: 7.6
+          arguments: test jacocoReport
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v3
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
   push:
     name: "Build and push"
     uses: curium-rocks/flows/.github/workflows/oci-build-image.yml@main
