@@ -59,7 +59,7 @@ jobs:
         uses: gradle/gradle-build-action@v2
         with:
           gradle-version: 7.6
-          arguments:  versionFile test jacocoReport
+          arguments:  versionFile test jacocoReport sonar
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v3
         env:
