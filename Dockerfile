@@ -1,4 +1,6 @@
 FROM ghcr.io/curium-rocks/alpine-zulu-jdk:main AS BUILD
+RUN apk add --no-cache nodejs npm
+ENV NODE_PATH=/usr/bin
 WORKDIR /app_build/
 COPY ./ ./
 RUN ./gradlew build jar versionFile -x test
