@@ -47,8 +47,5 @@ jobs:
         uses: github/codeql-action/init@v2
         with:
           languages: ${{ matrix.language }}
-      - run: |
-          chmod +x ./scripts/sh/gradle-build.sh
-          ./scripts/sh/gradle-build.sh
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v2

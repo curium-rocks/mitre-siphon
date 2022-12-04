@@ -56,11 +56,11 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 18
-      - name: Setup and execute Gradle 'test' task
+      - name: Execute Gradle Tasks
         uses: gradle/gradle-build-action@v2
         with:
           gradle-version: 7.6
-          arguments: test jacocoReport
+          arguments:  versionFile test jacocoReport
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v3
         env:
