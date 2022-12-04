@@ -1,8 +1,4 @@
-.*
-*.iml
-**/node_modules
-# exclude build binaries
-build/*
-**/build/
-#needed for git version plugin
-!.git
+*
+!build/libs
+!build/VERSION
+!scripts/sh/docker-entrypoint.sh
