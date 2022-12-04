@@ -59,7 +59,7 @@ jobs:
         uses: gradle/gradle-build-action@v2
         with:
           gradle-version: 7.6
-          arguments: versionFile test jacocoReport sonar
+          arguments: versionFile spotlessCheck test jacocoReport sonar
         env:
           SONAR_TOKEN: ${{ secrets.SONARQUBE_KEY }}
       - name: Upload coverage to Codecov
