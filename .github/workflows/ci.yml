@@ -80,6 +80,7 @@ jobs:
       image_name: mitre-siphon
       download_artifact: build
       download_artifact_path: build/
+      push_in_pr: true
 
   test-deploy:
     needs: build-container
