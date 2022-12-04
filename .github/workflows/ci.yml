@@ -37,7 +37,7 @@ jobs:
           KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:29094,PLAINTEXT_HOST://localhost:9093
           KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:29094,PLAINTEXT_HOST://0.0.0.0:9092
           KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
-        
+
       zookeeper:
         image: confluentinc/cp-zookeeper:7.3.0
         ports:
@@ -50,8 +50,8 @@ jobs:
           fetch-depth: 0
       - uses: actions/setup-java@v3
         with:
-          distribution: 'zulu'
-          java-version: '17'
+          distribution: "zulu"
+          java-version: "17"
       - uses: actions/setup-node@v3
         with:
           node-version: 18
@@ -59,15 +59,16 @@ jobs:
         uses: gradle/gradle-build-action@v2
         with:
           gradle-version: 7.6
-          arguments:  versionFile test jacocoReport sonar
+          arguments: versionFile test jacocoReport sonar
         env:
           SONAR_TOKEN: ${{ secrets.SONARQUBE_KEY }}
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v3
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
-  push:
-    name: "Build and push"
+  build-container:
+    needs: test
+    name: "Build container image"
     uses: curium-rocks/flows/.github/workflows/oci-build-image.yml@main
     with:
       image_name: mitre-siphon
