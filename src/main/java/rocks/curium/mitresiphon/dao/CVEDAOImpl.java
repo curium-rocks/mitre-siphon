@@ -53,7 +53,9 @@ public class CVEDAOImpl extends BaseDaoImpl<CVE> implements CVEDAO {
   }
 
   @Override
-  public void batchSave(List<CVE> cves) {}
+  public void batchSave(List<CVE> cves) {
+    // TODO: add support for batch save
+  }
 
   @Override
   public boolean isCveTracked(String cveId) {

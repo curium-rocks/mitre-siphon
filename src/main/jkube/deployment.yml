@@ -12,9 +12,16 @@ spec:
         project: ${name}
         version: ${version}
     spec:
+      volumes:
+        - name: config
+          configMap:
+            name: ${name}-config
       containers:
         - resources:
             limits:
               memory: ${limits_memory}
             requests:
               memory: ${requests_memory}
+          volumeMounts:
+            - name: config
+              mountPath: /app/config

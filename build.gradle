@@ -189,7 +189,7 @@ kubernetes {
 			}
 		}
 		configMap {
-			name = 'config'
+			name = "${project.name}-config"
 			entries = [
 				{
 					file = 'src/main/resources/application.k8s.properties'
@@ -208,6 +208,23 @@ kubernetes {
 		maintainers = [
 			{
 				name = 'bryopsida'
+			}
+		]
+		keywords = [
+			'mitre',
+			'cve',
+			'full-text-search'
+		]
+		dependencies = [
+			{
+				name = 'kafka'
+				version = '19.1.5'
+				repository = 'https://charts.bitnami.com/bitnami'
+			},
+			{
+				name = 'postgres'
+				version = '12.1.3'
+				repository = 'https://charts.bitnami.com/bitnami'
 			}
 		]
 	}
