@@ -1,9 +1,9 @@
 replicaCount: 1
 image:
   repository: "ghcr.io/curium-rocks/mitre-siphon"
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
   tag: "pr-122"
-
+rootLogLevel: "Info"
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
@@ -40,11 +40,11 @@ ingress:
   tls: []
 resources:
   limits:
-    cpu: 100m
-    memory: 256Mi
+    cpu: 512m
+    memory: 512Mi
   requests:
-    cpu: 100m
-    memory: 256Mi
+    cpu: 512m
+    memory: 512Mi
 
 autoscaling:
   enabled: true
@@ -56,5 +56,13 @@ tolerations: []
 affinity: {}
 kafka:
   enabled: true
+global:
+  postgresql:
+    auth:
+      # TODO: move this out to auto generated secret in hook and mount secret in as file
+      postgresPassword: postgres
+      username: mitre
+      password: mitre
+      database: mitre
 postgresql:
   enabled: true
