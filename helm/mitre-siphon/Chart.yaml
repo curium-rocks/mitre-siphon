@@ -2,7 +2,7 @@ apiVersion: v2
 name: mitre-siphon
 description: A full text search of the mitre CVE database
 type: application
-version: 0.1.0
+version: 0.2.0
 appVersion: "0.1.0"
 maintainers:
   - name: bryopsida
@@ -17,4 +17,4 @@ dependencies:
     alias: kafka
     condition: kafka.enabled
     repository: https://charts.bitnami.com/bitnami
-    version: "19.1.5"
+    version: "20.0.0"
