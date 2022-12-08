@@ -1,0 +1,85 @@
+replicaCount: 1
+image:
+  repository: "ghcr.io/curium-rocks/mitre-siphon"
+  pullPolicy: Always
+  tag: "main"
+rootLogLevel: "Info"
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  create: true
+  annotations: {}
+  name: ""
+
+podAnnotations: {}
+podSecurityContext: {}
+securityContext:
+  capabilities:
+    drop:
+    - ALL
+  readOnlyRootFilesystem: true
+  runAsNonRoot: true
+  runAsUser: 1000
+  privileged: false
+  allowPrivilegeEscalation: false
+service:
+  type: ClusterIP
+  port: 80
+
+ingress:
+  enabled: false
+  className: ""
+  annotations: {}
+  hosts:
+    - host: mitre-siphon.local
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+  tls: []
+resources:
+  limits:
+    cpu: 512m
+    memory: 512Mi
+  requests:
+    cpu: 512m
+    memory: 512Mi
+
+autoscaling:
+  enabled: true
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80
+nodeSelector: {}
+tolerations: []
+affinity: {}
+kafka:
+  enabled: true
+global:
+  postgresql:
+    auth:
+      # TODO: move this out to auto generated secret in hook and mount secret in as file
+      postgresPassword: postgres
+      username: mitre
+      password: mitre
+      database: mitre
+postgresql:
+  enabled: true
+probes:
+  enabled: true
+  ready:
+    enabled: true
+    endpoint: "/actuator/health"
+    failureThreshold: 15
+    interval: 2
+  live:
+    enabled: true
+    endpoint: "/actuator/health"
+    failureThreshold: 45
+    interval: 2
+  start:
+    enabled: true
+    endpoint: "/actuator/health"
+    failureThreshold: 30
+    interval: 2

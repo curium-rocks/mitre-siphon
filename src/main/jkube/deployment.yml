@@ -1,0 +1,29 @@
+metadata:
+  namespace: ${helm_namespace}
+  labels:
+    project: ${name}
+    version: ${version}
+spec:
+  replicas: 1
+  template:
+    metadata:
+      namespace: ${helm_namespace}
+      labels:
+        project: ${name}
+        version: ${version}
+    spec:
+      volumes:
+        - name: config
+          configMap:
+            name: ${name}-config
+      containers:
+        - image: ${image_repo}:${image_tag}
+          imagePullPolicy: ${image_pull_policy}
+          resources:
+            limits:
+              memory: ${limits_memory}
+            requests:
+              memory: ${requests_memory}
+          volumeMounts:
+            - name: config
+              mountPath: /app/config

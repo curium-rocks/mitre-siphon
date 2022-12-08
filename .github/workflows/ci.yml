@@ -1,0 +1,90 @@
+name: CI
+
+on:
+  push:
+    # Publish `main` as Docker `latest` image.
+    branches:
+      - main
+
+    # Publish `v1.2.3` tags as releases.
+    tags:
+      - v*
+
+  # Run tests for any PRs.
+  pull_request:
+
+jobs:
+  test:
+    name: "Test"
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: "postgres"
+        ports:
+          - "5432:5432"
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: mitre
+      kafka:
+        image: confluentinc/cp-kafka:7.3.0
+        ports:
+          - "9093:9092"
+        env:
+          KAFKA_BROKER_ID: 1
+          KAFKA_ZOOKEEPER_CONNECT: zookeeper:2182
+          KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+          KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:29094,PLAINTEXT_HOST://localhost:9093
+          KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:29094,PLAINTEXT_HOST://0.0.0.0:9092
+          KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+
+      zookeeper:
+        image: confluentinc/cp-zookeeper:7.3.0
+        ports:
+          - "9182:2182"
+        env:
+          ZOOKEEPER_CLIENT_PORT: 2182
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-java@v3
+        with:
+          distribution: "zulu"
+          java-version: "17"
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - name: Execute Gradle Tasks
+        uses: gradle/gradle-build-action@v2
+        with:
+          gradle-version: 7.6
+          arguments: versionFile spotlessCheck test jacocoReport sonar bootJar
+        env:
+          SONAR_TOKEN: ${{ secrets.SONARQUBE_KEY }}
+      - name: Upload Build
+        uses: actions/upload-artifact@v3
+        with:
+          name: build
+          path: build
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v3
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+
+  build-container:
+    needs: test
+    name: "Build container image"
+    uses: curium-rocks/flows/.github/workflows/oci-build-image.yml@main
+    with:
+      image_name: mitre-siphon
+      download_artifact: build
+      download_artifact_path: build/
+      push_in_pr: true
+
+  test-deploy:
+    needs: build-container
+    name: Test Deploy
+    uses: curium-rocks/flows/.github/workflows/helm-qa.yml@main
+    with:
+      helm_extra_sets: '--set image.tag=${{ needs.build-container.outputs.build_tag }}'

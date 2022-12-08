@@ -1,0 +1,18 @@
+kind: Template
+parameters:
+  - name: limits_memory
+    value: "512Mi"
+  - name: requests_memory
+    value: "256Mi"
+  - name: helm_namespace
+    value: |
+      {{ .Release.Namespace }}
+  - name: image_repo
+    value: |
+      {{ .Values.image.repo }}
+  - name: image_tag
+    value: |
+      {{ .Values.image.tag }}
+  - name: image_pull_policy
+    value: |
+      {{ .Values.image.pullPolicy }}
