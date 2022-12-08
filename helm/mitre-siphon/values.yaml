@@ -2,7 +2,7 @@ replicaCount: 1
 image:
   repository: "ghcr.io/curium-rocks/mitre-siphon"
   pullPolicy: Always
-  tag: "pr-122"
+  tag: "main"
 rootLogLevel: "Info"
 imagePullSecrets: []
 nameOverride: ""

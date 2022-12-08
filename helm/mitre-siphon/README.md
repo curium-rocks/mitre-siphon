@@ -33,7 +33,7 @@ A full text search of the mitre CVE database
 | global.postgresql.auth.username | string | `"mitre"` |  |
 | image.pullPolicy | string | `"Always"` |  |
 | image.repository | string | `"ghcr.io/curium-rocks/mitre-siphon"` |  |
-| image.tag | string | `"pr-122"` |  |
+| image.tag | string | `"main"` |  |
 | imagePullSecrets | list | `[]` |  |
 | ingress.annotations | object | `{}` |  |
 | ingress.className | string | `""` |  |
