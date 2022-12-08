@@ -87,4 +87,4 @@ jobs:
     name: Test Deploy
     uses: curium-rocks/flows/.github/workflows/helm-qa.yml@main
     with:
-      helm_extra_sets: '--set image.tag=${{ needs.build-container.outputs.sha_tag }}'
+      helm_extra_sets: '--set image.tag=${{ needs.build-container.outputs.build_tag }}'
