@@ -40,6 +40,11 @@ spec:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          {{- if .Values.probes.enabled }}
+          livenessProbe: {{ include "mitre-siphon.probe" .Values.probes.live | nindent 12 }}
+          readinessProbe: {{ include "mitre-siphon.probe" .Values.probes.ready | nindent 12 }}
+          startupProbe: {{ include "mitre-siphon.probe" .Values.probes.start | nindent 12 }}
+          {{- end }}
           volumeMounts:
           - mountPath: /tmp
             name: tmp

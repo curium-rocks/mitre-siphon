@@ -66,3 +66,20 @@ global:
       database: mitre
 postgresql:
   enabled: true
+probes:
+  enabled: true
+  ready:
+    enabled: true
+    endpoint: "/actuator/health"
+    failureThreshold: 15
+    interval: 2
+  live:
+    enabled: true
+    endpoint: "/actuator/health"
+    failureThreshold: 45
+    interval: 2
+  start:
+    enabled: true
+    endpoint: "/actuator/health"
+    failureThreshold: 30
+    interval: 2
