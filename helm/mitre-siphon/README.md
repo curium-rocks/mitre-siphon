@@ -1,6 +1,6 @@
 # mitre-siphon
 
-![Version: 0.2.1](https://img.shields.io/badge/Version-0.2.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.1.0](https://img.shields.io/badge/AppVersion-0.1.0-informational?style=flat-square)
+![Version: 0.2.2](https://img.shields.io/badge/Version-0.2.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.1.0](https://img.shields.io/badge/AppVersion-0.1.0-informational?style=flat-square)
 
 A full text search of the mitre CVE database
 
@@ -43,11 +43,14 @@ A full text search of the mitre CVE database
 | ingress.hosts[0].paths[0].pathType | string | `"ImplementationSpecific"` |  |
 | ingress.tls | list | `[]` |  |
 | kafka.enabled | bool | `true` |  |
+| kafka.nodeSelector."kubernetes.io/arch" | string | `"amd64"` |  |
+| kafka.zookeeper.nodeSelector."kubernetes.io/arch" | string | `"amd64"` |  |
 | nameOverride | string | `""` |  |
 | nodeSelector | object | `{}` |  |
 | podAnnotations | object | `{}` |  |
 | podSecurityContext | object | `{}` |  |
 | postgresql.enabled | bool | `true` |  |
+| postgresql.nodeSelector."kubernetes.io/arch" | string | `"amd64"` |  |
 | probes.enabled | bool | `true` |  |
 | probes.live.enabled | bool | `true` |  |
 | probes.live.endpoint | string | `"/actuator/health"` |  |

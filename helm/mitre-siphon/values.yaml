@@ -56,6 +56,11 @@ tolerations: []
 affinity: {}
 kafka:
   enabled: true
+  nodeSelector:
+    kubernetes.io/arch: amd64
+  zookeeper:
+    nodeSelector:
+      kubernetes.io/arch: amd64
 global:
   postgresql:
     auth:
@@ -66,6 +71,8 @@ global:
       database: mitre
 postgresql:
   enabled: true
+  nodeSelector:
+      kubernetes.io/arch: amd64
 probes:
   enabled: true
   ready:
