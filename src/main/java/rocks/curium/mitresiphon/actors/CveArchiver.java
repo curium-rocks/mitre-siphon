@@ -63,18 +63,17 @@ public class CveArchiver {
   }
 
   private void track(final Def_cve_item a) {
-      if (!cveDao.isCveTracked(a.getCve().getCVE_data_meta().getID().toLowerCase())) {
-        var newCve = new CVE();
-        var nvdCve = a.getCve();
-        if (!nvdCve.getDescription().getDescription_data().isEmpty()) {
-          newCve.setDescription(
-              nvdCve.getDescription().getDescription_data().get(0).getValue());
-        }
-        newCve.setId(nvdCve.getCVE_data_meta().getID());
-        if (!nvdCve.getReferences().getReference_data().isEmpty()) {
-          newCve.setReferences(nvdCve.getReferences().getReference_data().get(0).getUrl());
-        }
-        cveDao.save(newCve);
+    if (!cveDao.isCveTracked(a.getCve().getCVE_data_meta().getID().toLowerCase())) {
+      var newCve = new CVE();
+      var nvdCve = a.getCve();
+      if (!nvdCve.getDescription().getDescription_data().isEmpty()) {
+        newCve.setDescription(nvdCve.getDescription().getDescription_data().get(0).getValue());
       }
+      newCve.setId(nvdCve.getCVE_data_meta().getID());
+      if (!nvdCve.getReferences().getReference_data().isEmpty()) {
+        newCve.setReferences(nvdCve.getReferences().getReference_data().get(0).getUrl());
+      }
+      cveDao.save(newCve);
+    }
   }
 }

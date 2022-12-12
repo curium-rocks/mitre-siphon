@@ -1,12 +1,14 @@
 package rocks.curium.mitresiphon.tasks.helpers;
 
 import java.net.URI;
+import java.time.Duration;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.concurrent.CompletableFuture;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.Disposable;
+import reactor.netty.http.client.HttpClientRequest;
 import rocks.curium.mitresiphon.tasks.helpers.interfaces.HttpModifiedCheck;
 
 @Service
@@ -35,6 +37,11 @@ public class HttpModifiedCheckImpl implements HttpModifiedCheck {
             .build()
             .head()
             .uri(resourceUri)
+            .httpRequest(
+                httpRequest -> {
+                  HttpClientRequest reactorRequest = httpRequest.getNativeRequest();
+                  reactorRequest.responseTimeout(Duration.ofSeconds(10));
+                })
             .exchangeToFlux(
                 clientResponse -> {
                   clientResponse.headers();

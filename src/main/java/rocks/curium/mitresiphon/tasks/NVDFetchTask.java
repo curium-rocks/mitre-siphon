@@ -1,11 +1,10 @@
 package rocks.curium.mitresiphon.tasks;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.concurrent.ExecutionException;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.quartz.DisallowConcurrentExecution;
 import org.quartz.JobDataMap;
 import org.quartz.JobExecutionContext;
@@ -15,7 +14,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.scheduling.quartz.QuartzJobBean;
 import rocks.curium.mitresiphon.dao.interfaces.ResourceStatDAO;
-import rocks.curium.mitresiphon.generated.models.CVE_JSON_4_0_min_1_1;
 import rocks.curium.mitresiphon.generated.models.Def_cve_item;
 import rocks.curium.mitresiphon.generated.models.Nvd_cve_feed_json_1_1;
 import rocks.curium.mitresiphon.tasks.helpers.interfaces.HttpModifiedCheck;
@@ -69,7 +67,7 @@ public class NVDFetchTask extends QuartzJobBean {
     if (Boolean.TRUE.equals(modifiedCheck.isNewDataAvailable(lastFetchTime, resourceUri).get())) {
       String feedResponse = fetcher.fetch(resourceUri).get();
       final Nvd_cve_feed_json_1_1 db = mapper.readValue(feedResponse, Nvd_cve_feed_json_1_1.class);
-      for(final Def_cve_item item: db.getCVE_Items()) {
+      for (final Def_cve_item item : db.getCVE_Items()) {
         kafkaTemplate.send(topic, mapper.writeValueAsString(item));
       }
       return true;
