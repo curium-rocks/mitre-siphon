@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.concurrent.ExecutionException;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.quartz.DisallowConcurrentExecution;
 import org.quartz.JobDataMap;
 import org.quartz.JobExecutionContext;
@@ -13,6 +15,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.scheduling.quartz.QuartzJobBean;
 import rocks.curium.mitresiphon.dao.interfaces.ResourceStatDAO;
+import rocks.curium.mitresiphon.generated.models.CVE_JSON_4_0_min_1_1;
+import rocks.curium.mitresiphon.generated.models.Def_cve_item;
+import rocks.curium.mitresiphon.generated.models.Nvd_cve_feed_json_1_1;
 import rocks.curium.mitresiphon.tasks.helpers.interfaces.HttpModifiedCheck;
 import rocks.curium.mitresiphon.tasks.helpers.interfaces.NvdHttpFetch;
 
@@ -24,6 +29,7 @@ public class NVDFetchTask extends QuartzJobBean {
   private final HttpModifiedCheck modifiedCheck;
   private final NvdHttpFetch fetcher;
   private final ResourceStatDAO resourceDAO;
+  private final ObjectMapper mapper;
 
   private static final Logger LOG = LoggerFactory.getLogger(NVDFetchTask.class);
 
@@ -32,7 +38,7 @@ public class NVDFetchTask extends QuartzJobBean {
   public static final String RECENT_URL =
       "https://nvd.nist.gov/feeds/json/cve/1.1/nvdcve-1.1-recent.json.gz";
   public static final String COMPLETE_URL =
-      "https://nvd.nist.gov/feeds/json/cve/1.1/nvdcve-1.1-2021.json.gz";
+      "https://nvd.nist.gov/feeds/json/cve/1.1/nvdcve-1.1-2022.json.gz";
 
   public static final String URL_PARM_NAME = "NVD_FETCH_URL";
   public static final String KAFKA_TOPIC_PARM_NAME = "NVD_PUBLISH_TARGET";
@@ -55,13 +61,17 @@ public class NVDFetchTask extends QuartzJobBean {
     modifiedCheck = modCheck;
     fetcher = nvdHttpFetch;
     resourceDAO = resource;
+    mapper = new ObjectMapper();
   }
 
   private boolean checkAndPublish(URI resourceUri, ZonedDateTime lastFetchTime, String topic)
       throws IOException, ExecutionException, InterruptedException {
     if (Boolean.TRUE.equals(modifiedCheck.isNewDataAvailable(lastFetchTime, resourceUri).get())) {
       String feedResponse = fetcher.fetch(resourceUri).get();
-      kafkaTemplate.send(topic, feedResponse);
+      final Nvd_cve_feed_json_1_1 db = mapper.readValue(feedResponse, Nvd_cve_feed_json_1_1.class);
+      for(final Def_cve_item item: db.getCVE_Items()) {
+        kafkaTemplate.send(topic, mapper.writeValueAsString(item));
+      }
       return true;
     } else {
       return false;
