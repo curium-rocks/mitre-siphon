@@ -16,7 +16,7 @@ sourceCompatibility = '17'
 targetCompatibility = '17'
 
 ext {
-	springDocVersion = "1.6.13"
+	springDocVersion = "2.0.0"
 	mitreTaxiiVersion = '1.1.0.1'
 	mitreStixVersion = '1.2.0.2'
 	junitVersion = '5.9.1'
@@ -58,8 +58,8 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
 	implementation 'org.springframework.kafka:spring-kafka'
 	implementation 'org.springframework.boot:spring-boot-starter-quartz'
-	implementation group: 'org.springdoc', name: 'springdoc-openapi-ui', version: springDocVersion
-	implementation group: 'org.springdoc', name: 'springdoc-openapi-security', version: springDocVersion
+	implementation group: 'org.springdoc', name: 'springdoc-openapi', version: springDocVersion
+	implementation group: 'org.springdoc', name: 'springdoc-openapi-starter-webmvc-ui', version: springDocVersion
 	implementation group: 'org.mitre.taxii', name: 'taxii', version: mitreTaxiiVersion
 	implementation group: 'org.mitre', name: 'stix', version: mitreStixVersion
 	implementation group: 'javax.persistence', name: 'javax.persistence-api', version: javaxPersistenceVersion

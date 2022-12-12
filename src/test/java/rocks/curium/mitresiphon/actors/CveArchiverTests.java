@@ -16,7 +16,7 @@ class CveArchiverTests {
 
   private String serialize(Nvd_cve_feed_json_1_1 feed) throws JsonProcessingException {
     ObjectMapper mapper = new ObjectMapper();
-    return mapper.writeValueAsString(feed);
+    return mapper.writeValueAsString(feed.getCVE_Items().get(0));
   }
 
   private Nvd_cve_feed_json_1_1 getFeed() {

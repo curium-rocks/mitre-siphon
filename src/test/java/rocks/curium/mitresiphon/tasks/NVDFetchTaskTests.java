@@ -62,12 +62,12 @@ class NVDFetchTaskTests {
     testMap.put(NVDFetchTask.URL_PARM_NAME, resourceUri.toString());
     testMap.put(NVDFetchTask.KAFKA_TOPIC_PARM_NAME, "TEST");
     Mockito.when(context.getMergedJobDataMap()).thenReturn(new JobDataMap(testMap));
-    Mockito.when(fetch.fetch(any())).thenReturn(CompletableFuture.completedFuture("TEST"));
+    Mockito.when(fetch.fetch(any())).thenReturn(CompletableFuture.completedFuture("{}"));
     NVDFetchTask fetchTask = new NVDFetchTask(kafkaTemplate, modifiedCheck, fetch, resourceDAO);
     fetchTask.executeInternal(context);
     // TODO: refactor to use awaitility to wait condition with timeout, execute doesn't return
     // future and code behind leverages futures
-    Thread.sleep(5000);
+    Thread.sleep(15000);
     Mockito.verify(fetch, times(1)).fetch(any());
   }
 }
