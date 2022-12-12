@@ -40,11 +40,11 @@ ingress:
   tls: []
 resources:
   limits:
-    cpu: 512m
-    memory: 512Mi
+    cpu: 2048m
+    memory: 1024Mi
   requests:
     cpu: 512m
-    memory: 512Mi
+    memory: 1024Mi
 
 autoscaling:
   enabled: true
@@ -71,8 +71,12 @@ global:
       database: mitre
 postgresql:
   enabled: true
-  nodeSelector:
-    kubernetes.io/arch: amd64
+  primary:
+    nodeSelector:
+      kubernetes.io/arch: amd64
+  readReplica:
+    nodeSelector:
+      kubernetes.io/arch: amd64
 probes:
   enabled: true
   ready:

@@ -1,6 +1,6 @@
 # mitre-siphon
 
-![Version: 0.2.2](https://img.shields.io/badge/Version-0.2.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.1.0](https://img.shields.io/badge/AppVersion-0.1.0-informational?style=flat-square)
+![Version: 0.2.3](https://img.shields.io/badge/Version-0.2.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.2.2](https://img.shields.io/badge/AppVersion-0.2.2-informational?style=flat-square)
 
 A full text search of the mitre CVE database
 
@@ -50,7 +50,8 @@ A full text search of the mitre CVE database
 | podAnnotations | object | `{}` |  |
 | podSecurityContext | object | `{}` |  |
 | postgresql.enabled | bool | `true` |  |
-| postgresql.nodeSelector."kubernetes.io/arch" | string | `"amd64"` |  |
+| postgresql.primary.nodeSelector."kubernetes.io/arch" | string | `"amd64"` |  |
+| postgresql.readReplica.nodeSelector."kubernetes.io/arch" | string | `"amd64"` |  |
 | probes.enabled | bool | `true` |  |
 | probes.live.enabled | bool | `true` |  |
 | probes.live.endpoint | string | `"/actuator/health"` |  |
@@ -65,10 +66,10 @@ A full text search of the mitre CVE database
 | probes.start.failureThreshold | int | `30` |  |
 | probes.start.interval | int | `2` |  |
 | replicaCount | int | `1` |  |
-| resources.limits.cpu | string | `"512m"` |  |
-| resources.limits.memory | string | `"512Mi"` |  |
+| resources.limits.cpu | string | `"2048m"` |  |
+| resources.limits.memory | string | `"1024Mi"` |  |
 | resources.requests.cpu | string | `"512m"` |  |
-| resources.requests.memory | string | `"512Mi"` |  |
+| resources.requests.memory | string | `"1024Mi"` |  |
 | rootLogLevel | string | `"Info"` |  |
 | securityContext.allowPrivilegeEscalation | bool | `false` |  |
 | securityContext.capabilities.drop[0] | string | `"ALL"` |  |
