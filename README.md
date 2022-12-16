@@ -20,9 +20,11 @@ docker-compose --file docker-compose.test.yml run sut
 
 ## Getting Started
 
-Run `docker-compose up` to launch the application. Once everything has started up you will be able to access the application at http://localost:8080/ the default credentials are test:test. Once you are logged in you will have access to the swagger ui to interact with the REST API. This will allow you to do paged multi term searches against the saved NVD CVE data.
+Run `docker-compose up` to launch the application. Once everything has started up you will be able to access the application at http://localost:8080/, a basic swagger ui is included to show the API endpoints. 
 
 ![image](https://user-images.githubusercontent.com/8363252/106229649-9adac180-61b3-11eb-8aa9-614ebfb1dcf3.png)
+
+You can interact with a live version [here](https://mitre-siphon.apps.curium.rocks).
 
 ## Built With
 
@@ -41,7 +43,6 @@ Run `docker-compose up` to launch the application. Once everything has started u
 
 ## Todos
 
-- Helm chart
 - Increase test coverage and cases covered in tests
 - Add a UI for searching the data
 - Smarter spring active profile switching based on environment
