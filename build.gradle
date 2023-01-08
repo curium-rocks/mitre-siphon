@@ -137,10 +137,8 @@ jsonSchema2Pojo {
 			includeAdditionalProperties = false
 			generateBuilders = false
 			usePrimitives = false
-			source = files("${sourceSets.main.output.resourcesDir}/json")
-			targetDirectory = file("${project.rootDir}/src/generated/java")
+			source.setFrom(files("${sourceSets.main.output.resourcesDir}/json"))
 			targetPackage = 'rocks.curium.mitresiphon.generated.models'
-			propertyWordDelimiters = [] as char[]
 			useLongIntegers = false
 			useBigIntegers = false
 			useDoubleNumbers = true
@@ -160,7 +158,6 @@ jsonSchema2Pojo {
 			initializeCollections = true
 			classNamePrefix = ""
 			classNameSuffix = ""
-			fileExtensions = [] as String[]
 			includeConstructors = false
 			parcelable = false
 			serializable = true
