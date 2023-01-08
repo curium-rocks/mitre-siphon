@@ -3,6 +3,30 @@ entries:
   mitre-siphon:
   - apiVersion: v2
     appVersion: 0.2.2
+    created: "2023-01-08T14:40:57.315221499Z"
+    dependencies:
+    - alias: postgresql
+      condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 12.1.7
+    - alias: kafka
+      condition: kafka.enabled
+      name: kafka
+      repository: https://charts.bitnami.com/bitnami
+      version: 20.0.2
+    description: A full text search of the mitre CVE database
+    digest: f8db77b27eab1178e73a8881743528ff78efab836dce0e2205356fd4a8583fc7
+    maintainers:
+    - email: 8363252+bryopsida@users.noreply.github.com
+      name: bryopsida
+    name: mitre-siphon
+    type: application
+    urls:
+    - https://github.com/curium-rocks/mitre-siphon/releases/download/mitre-siphon-0.2.7/mitre-siphon-0.2.7.tgz
+    version: 0.2.7
+  - apiVersion: v2
+    appVersion: 0.2.2
     created: "2022-12-31T02:17:09.629017205Z"
     dependencies:
     - alias: postgresql
@@ -193,4 +217,4 @@ entries:
     urls:
     - https://github.com/curium-rocks/mitre-siphon/releases/download/mitre-siphon-0.1.0/mitre-siphon-0.1.0.tgz
     version: 0.1.0
-generated: "2022-12-31T02:17:09.629053505Z"
+generated: "2023-01-08T14:40:57.315252499Z"
