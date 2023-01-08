@@ -4,7 +4,7 @@ plugins {
 	id 'java'
 	id 'com.palantir.git-version' version '0.15.0'
 	id "org.flywaydb.flyway" version "9.11.0"
-	id "com.github.eirnym.js2p" version "1.0"
+	id "org.jsonschema2dataclass" version "5.0.0"
 	id 'jacoco'
 	id "com.diffplug.spotless" version "6.12.1"
 	id "org.sonarqube" version "3.5.0.2730"
@@ -132,44 +132,45 @@ flyway {
 
 
 jsonSchema2Pojo {
-	includeAdditionalProperties = false
-	generateBuilders = false
-	usePrimitives = false
-	source = files("${sourceSets.main.output.resourcesDir}/json")
-	targetDirectory = file("${project.rootDir}/src/generated/java")
-	targetPackage = 'rocks.curium.mitresiphon.generated.models'
-	propertyWordDelimiters = [] as char[]
-	useLongIntegers = false
-	useBigIntegers = false
-	useDoubleNumbers = true
-	useBigDecimals = false
-	includeHashcodeAndEquals = true
-	includeToString = true
-	annotationStyle = 'jackson2'
-	customAnnotator = 'org.jsonschema2pojo.NoopAnnotator'
-	includeJsr303Annotations = false
-	sourceType = 'jsonschema'
-	removeOldOutput = false
-	outputEncoding = 'UTF-8'
-	useJodaDates = false
-	formatDateTimes = true
-	formatDates = true
-	formatTimes = true
-	initializeCollections = true
-	classNamePrefix = ""
-	classNameSuffix = ""
-	fileExtensions = [] as String[]
-	includeConstructors = false
-	parcelable = false
-	serializable = true
-	includeGetters = true
-	includeSetters = true
-	includeDynamicAccessors = false
-	includeDynamicGetters = false
-	includeDynamicSetters = false
-	includeDynamicBuilders = false
-	dateType = "java.time.LocalDate"
-	dateTimeType = "java.time.LocalDateTime"
+	executions {
+		main {
+			includeAdditionalProperties = false
+			generateBuilders = false
+			usePrimitives = false
+			source.setFrom(files("${sourceSets.main.output.resourcesDir}/json"))
+			targetPackage = 'rocks.curium.mitresiphon.generated.models'
+			useLongIntegers = false
+			useBigIntegers = false
+			useDoubleNumbers = true
+			useBigDecimals = false
+			includeHashcodeAndEquals = true
+			includeToString = true
+			annotationStyle = 'jackson2'
+			customAnnotator = 'org.jsonschema2pojo.NoopAnnotator'
+			includeJsr303Annotations = false
+			sourceType = 'jsonschema'
+			removeOldOutput = false
+			outputEncoding = 'UTF-8'
+			useJodaDates = false
+			formatDateTimes = true
+			formatDates = true
+			formatTimes = true
+			initializeCollections = true
+			classNamePrefix = ""
+			classNameSuffix = ""
+			includeConstructors = false
+			parcelable = false
+			serializable = true
+			includeGetters = true
+			includeSetters = true
+			includeDynamicAccessors = false
+			includeDynamicGetters = false
+			includeDynamicSetters = false
+			includeDynamicBuilders = false
+			dateType = "java.time.LocalDate"
+			dateTimeType = "java.time.LocalDateTime"
+		}
+	}
 }
 
 spotless {
