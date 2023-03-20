@@ -1,6 +1,6 @@
 # mitre-siphon
 
-![Version: 0.2.8](https://img.shields.io/badge/Version-0.2.8-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.2.2](https://img.shields.io/badge/AppVersion-0.2.2-informational?style=flat-square)
+![Version: 0.2.9](https://img.shields.io/badge/Version-0.2.9-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.2.2](https://img.shields.io/badge/AppVersion-0.2.2-informational?style=flat-square)
 
 A full text search of the mitre CVE database
 
@@ -14,7 +14,7 @@ A full text search of the mitre CVE database
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://charts.bitnami.com/bitnami | kafka(kafka) | 20.1.1 |
+| https://charts.bitnami.com/bitnami | kafka(kafka) | 21.4.0 |
 | https://charts.bitnami.com/bitnami | postgresql(postgresql) | 12.2.2 |
 
 ## Values
