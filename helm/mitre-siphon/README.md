@@ -14,7 +14,7 @@ A full text search of the mitre CVE database
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://charts.bitnami.com/bitnami | kafka(kafka) | 21.4.0 |
+| https://charts.bitnami.com/bitnami | kafka(kafka) | 21.4.4 |
 | https://charts.bitnami.com/bitnami | postgresql(postgresql) | 12.2.2 |
 
 ## Values
