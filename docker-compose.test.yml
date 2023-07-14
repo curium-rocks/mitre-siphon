@@ -9,7 +9,7 @@ services:
     ports:
       - "5432:5432"
   kafka:
-    image: confluentinc/cp-kafka:7.4.0
+    image: confluentinc/cp-kafka:7.4.1
     container_name: kafka
     ports:
       - "9093:9092"
