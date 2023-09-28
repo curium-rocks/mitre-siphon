@@ -1,9 +1,9 @@
 dependencies:
 - name: postgresql
   repository: https://charts.bitnami.com/bitnami
-  version: 12.2.2
+  version: 13.0.0
 - name: kafka
   repository: https://charts.bitnami.com/bitnami
   version: 25.1.12
-digest: sha256:9f235635c156c562f5feb911a0904c11d4f64ce15cd81df4c03cb998136c6247
-generated: "2023-09-25T16:23:01.433570537Z"
+digest: sha256:e7b64713b39b0b8c22fcbf2e29290203f4aa8741797a8beab4b41543afdc5e84
+generated: "2023-09-28T12:09:20.359366993Z"
