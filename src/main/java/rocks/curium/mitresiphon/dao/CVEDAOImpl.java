@@ -46,7 +46,7 @@ public class CVEDAOImpl extends BaseDaoImpl<CVE> implements CVEDAO {
 
     var result = new SearchResult();
     result.setTotalMatches(BigInteger.valueOf((Long) countQuery.uniqueResult()));
-    result.setMatches(query.stream().collect(Collectors.toList()));
+    result.setMatches(query.stream().toList());
     result.setOffset(criteria.getOffset());
     result.setCount(criteria.getCount());
     return result;
