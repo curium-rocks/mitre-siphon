@@ -27,7 +27,7 @@ jobs:
           POSTGRES_PASSWORD: postgres
           POSTGRES_DB: mitre
       kafka:
-        image: confluentinc/cp-kafka:7.6.1
+        image: confluentinc/cp-kafka:7.6.2
         ports:
           - "9093:9092"
         env:
