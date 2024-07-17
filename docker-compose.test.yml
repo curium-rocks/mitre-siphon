@@ -23,7 +23,7 @@ services:
     depends_on:
       - zookeeper
   zookeeper:
-    image: confluentinc/cp-zookeeper:7.6.1
+    image: confluentinc/cp-zookeeper:7.6.2
     container_name: zookeeper
     ports:
       - "9182:2182"
