@@ -17,4 +17,4 @@ dependencies:
     alias: kafka
     condition: kafka.enabled
     repository: https://charts.bitnami.com/bitnami
-    version: "29.3.9"
+    version: "29.3.10"
