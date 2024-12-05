@@ -1,5 +1,7 @@
 package rocks.curium.mitresiphon.tasks.helpers;
 
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URL;
@@ -23,7 +25,7 @@ public class NvdHttpFetchImpl implements NvdHttpFetch {
   private static String readStringFromURL(String requestURL) throws IOException {
     try (Scanner scanner =
         new Scanner(
-            new GZIPInputStream(new URL(requestURL).openStream()),
+            new GZIPInputStream(Urls.create(requestURL, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS).openStream()),
             StandardCharsets.UTF_8.toString())) {
       scanner.useDelimiter("\\A");
       return scanner.hasNext() ? scanner.next() : "";
