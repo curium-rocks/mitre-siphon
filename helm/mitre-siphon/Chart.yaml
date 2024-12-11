@@ -12,7 +12,7 @@ dependencies:
     alias: postgresql
     condition: postgresql.enabled
     repository: https://charts.bitnami.com/bitnami
-    version: "16.2.5"
+    version: "16.3.0"
   - name: kafka
     alias: kafka
     condition: kafka.enabled
