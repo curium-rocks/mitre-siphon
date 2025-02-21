@@ -20,7 +20,7 @@ ext {
 	mitreTaxiiVersion = '1.1.0.1'
 	mitreStixVersion = '1.2.0.2'
 	junitVersion = '5.9.1'
-	awaitiliyVersion = '4.2.2'
+	awaitiliyVersion = '4.3.0'
 	okhttpVersion = '4.12.0'
 	javaxPersistenceVersion = '2.2'
 	javaxValidationVersion = '3.1.1'
