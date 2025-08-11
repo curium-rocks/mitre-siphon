@@ -45,7 +45,7 @@ jobs:
         env:
           ZOOKEEPER_CLIENT_PORT: 2182
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           fetch-depth: 0
       - uses: actions/setup-java@v4
