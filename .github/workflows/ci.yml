@@ -63,7 +63,7 @@ jobs:
         env:
           SONAR_TOKEN: ${{ secrets.SONARQUBE_KEY }}
       - name: Upload Build
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: build
           path: build
