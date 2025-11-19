@@ -21,7 +21,7 @@ ext {
 	mitreStixVersion = '1.2.0.2'
 	junitVersion = '5.9.1'
 	awaitiliyVersion = '4.3.0'
-	okhttpVersion = '5.3.1'
+	okhttpVersion = '5.3.2'
 	javaxPersistenceVersion = '2.2'
 	javaxValidationVersion = '3.1.1'
 }
