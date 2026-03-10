@@ -1,9 +1,9 @@
 dependencies:
 - name: postgresql
   repository: https://charts.bitnami.com/bitnami
-  version: 18.5.5
+  version: 18.5.6
 - name: kafka
   repository: https://charts.bitnami.com/bitnami
   version: 32.4.3
-digest: sha256:69ab1be7cce9da7c052fc4d7564d52aeaed63e5f2863e3ad5500ee94eb89c57c
-generated: "2026-03-07T09:59:31.497775011Z"
+digest: sha256:85f83567664f151c59dcbfdb8bcfab7c4739cb4325427ae43ad73a084734ebdb
+generated: "2026-03-10T22:39:48.564143948Z"
