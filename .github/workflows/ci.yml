@@ -54,7 +54,7 @@ jobs:
           java-version: "17"
       - uses: actions/setup-node@v7
         with:
-          node-version: 24
+          node-version: 26
       - name: Execute Gradle Tasks
         uses: gradle/gradle-build-action@v3
         with:
